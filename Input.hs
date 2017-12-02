@@ -1,4 +1,9 @@
-module Input where
+module Input (
+    withData,
+    parserDay1,
+    parserDay2,
+)
+where
 import           Data.Char
 import           Text.Parsec
 import           Text.Parsec.String (Parser, parseFromFile)
@@ -17,16 +22,9 @@ parserDay2 = many1 (sepBy1 number (char '\t') <* newline)
 parserDay1 :: Parser [Int]
 parserDay1 = many1 (digitToInt <$> digit) <* newline
 
+-- just tests.
 day1 :: IO ()
-day1 = withData "../data/day01.txt" parserDay1 >>= \ d -> print d
+day1 = withData "data/day01.txt" parserDay1 >>= \ d -> print d
 
 day2 :: IO ()
-day2 = withData "../data/day02.txt" parserDay2 >>= \ d -> print d
-
--- day02 :: IO ()
--- day02 =
---   withInput "input/2.txt" parser >>= \parsed -> do
---     putStrLn "Part 1"
---     print $ checksumOn difference parsed
---     putStrLn "Part 2"
---     print $ checksumOn evenDivision parsed
+day2 = withData "data/day02.txt" parserDay2 >>= \ d -> print d
