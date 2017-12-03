@@ -69,7 +69,7 @@ sumOverPath :: Int ->  Location -> Path -> State AllLocation Int
 sumOverPath target currentLoc ((_, d):ps) = do
     locationsMap <- get
     let nextLoc = applyDirection currentLoc d
-    let v = valueForLocation nextLoc locationsMap
+        v = valueForLocation nextLoc locationsMap
     put $ M.insert nextLoc v locationsMap
     if v > target
         then return v
@@ -78,3 +78,12 @@ sumOverPath target currentLoc ((_, d):ps) = do
 
 part2 :: Int -> Int
 part2 target = evalState (sumOverPath target (0,0) generatePath) $ M.singleton  (0, 0) 1
+
+main :: IO ()
+main =
+    do
+        putStrLn "Day 3\n-----"
+        -- part 1
+        print $  solveForDistance 368078
+        -- part 2,
+        print $ part2 368078
