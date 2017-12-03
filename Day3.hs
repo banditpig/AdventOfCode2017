@@ -60,7 +60,7 @@ valueForLocation :: Location -> AllLocation -> Int
 valueForLocation location  locations  = foldr f 0  neighbs  where
     -- add the current loc to all the (relative) neighbours to give the absolute neighbours
     -- (this could be more efficient as only half are meaninful depending of direction)
-    neighbs = addLocations location <$> [ (x, y) | x <- [-1, 0, 1], y <- [-1, 0, 1]]
+    neighbs = addLocations location <$> [ (x, y) | x <- [-1 .. 1], y <- [-1 .. 1] ]
     -- if this loc is in the (map of) locations add its value
     f loc acc  = acc + M.findWithDefault 0 loc locations
 
