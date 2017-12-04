@@ -3,7 +3,6 @@
 
 module Day4
 where
-
 import           Data.List
 import           Input
 
@@ -21,7 +20,4 @@ main =
     -- which runs sort over each string in each row. So then can just apply filter allUnique
     print $ length $ filter allUnique $ fmap (fmap sort) input
                                       -- or fmap sort <$> input
-    -- Part 1
-    -- 325
-    -- Part 2
-    -- 119
+
