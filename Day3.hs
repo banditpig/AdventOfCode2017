@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS -Wall -fwarn-tabs -fno-warn-type-defaults -fno-warn-unused-do-bind #-}
 
+module Day3 where
+
 import           Control.Monad.State
 import qualified Data.Map.Strict     as M
 import           Data.Maybe
