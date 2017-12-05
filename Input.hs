@@ -3,6 +3,8 @@ module Input (
     parserDay1,
     parserDay2,
     parserDay4,
+    parserDay5,
+
 )
 where
 import           Data.Char
@@ -29,7 +31,17 @@ parserDay2 = many1 (sepBy1 number (char '\t') <* newline)
 parserDay1 :: Parser [Int]
 parserDay1 = many1 (digitToInt <$> digit) <* newline
 
+parserDay5 :: Parser [Int]
+parserDay5 = many ( (int) <* newline)
 
+
+natural :: Parser Int
+natural = pure read <*> many1 digit
+
+
+
+int :: Parser Int
+int = char '-' *> pure ((-1)*) <*> natural <|> natural
 
 
 -- just tests.
