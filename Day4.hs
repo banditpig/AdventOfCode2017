@@ -1,15 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS -Wall -fwarn-tabs -fno-warn-type-defaults -fno-warn-unused-do-bind #-}
 
-module Day4
-where
+module Day4 where
 import           Data.List
 import           Input
 
 allUnique :: Eq a => [a] -> Bool
 allUnique xs = xs == nub xs
 
-main:: IO ()
+main :: IO ()
 main =
   withData "data/day04.txt" parserDay4 >>= \input -> do
     putStrLn "Day 4\n-----"
