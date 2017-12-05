@@ -7,7 +7,7 @@ module Input (
 where
 import           Data.Char
 import           Text.Parsec
-import           Text.Parsec.String (Parser, parseFromFile)
+import           Text.Parsec.String
 
 -- Make this into a library when done AoC
 --
