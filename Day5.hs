@@ -5,18 +5,19 @@ import           Control.Monad.State
 import qualified Data.Map.Strict     as M
 import           Input
 
-makeMap :: [Int] -> M.Map Int Int
-makeMap d = M.fromList $ zip  [1..] d
-
 type JumpState = (M.Map Int Int, Int)
-
 type JumpFunc = Int -> Int
+
+
 
 jumpPart1 :: JumpFunc
 jumpPart1 = (1+)
 
 jumpPart2 :: JumpFunc
 jumpPart2 i = if i >= 3 then i -1 else i + 1
+
+makeMap :: [Int] -> M.Map Int Int
+makeMap d = M.fromList $ zip  [1..] d
 
 solve :: JumpFunc ->  State JumpState Int
 solve jf = go 1 where
