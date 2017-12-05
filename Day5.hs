@@ -10,14 +10,22 @@ makeMap d = M.fromList $ zip  [1..] d
 
 type JumpState = (M.Map Int Int, Int)
 
-solve :: State JumpState Int
-solve = go 1 where
+type JumpFunc = Int -> Int
+
+jumpPart1 :: JumpFunc
+jumpPart1 = (1+)
+
+jumpPart2 :: JumpFunc
+jumpPart2 i = if i >= 3 then i -1 else i + 1
+
+solve :: JumpFunc ->  State JumpState Int
+solve jf = go 1 where
     go :: Int -> State JumpState Int
     go i = do
         (map, cnt) <- get
         let step = map M.! i
             newi = i + step
-            newval = step + 1
+            newval = jf step
         if newi > M.size map
             then return (cnt + 1)
             else do
@@ -29,8 +37,10 @@ testMap = M.fromList [(1,0),(2,3),(3,0),(4,1),(5,-3)]
 
 main :: IO ()
 main =
-    withData "data/day05.txt" parserDay5 >>= \ input -> do
-        putStrLn "Day 5\n-----"
-        -- part 1 = 359348
-        print $ evalState solve (makeMap input, 0)
+ withData "data/day05.txt" parserDay5 >>= \ input -> do
+    putStrLn "Day 5\n-----"
+    -- part 1 = 359348
+    print $ evalState (solve jumpPart1) (makeMap input, 0)
+    -- part 2 = 27688760 - might need to use ghc rather than ghci so that 'solve' can be tail call optimised.
+    print $ evalState (solve jumpPart2) (makeMap input, 0)
 
