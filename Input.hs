@@ -28,11 +28,12 @@ parserDay2 = many1 (sepBy1 number (char '\t') <* newline)
         number :: Parser Int
         number = read <$> many1 digit
 
+-- this wont do -ve
 parserDay1 :: Parser [Int]
 parserDay1 = many1 (digitToInt <$> digit) <* newline
-
+-- this will do -ve
 parserDay5 :: Parser [Int]
-parserDay5 = many ( (int) <* newline)
+parserDay5 = many ( int <* newline)
 
 
 natural :: Parser Int
