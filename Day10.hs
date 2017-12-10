@@ -7,6 +7,16 @@ import           Data.List
 import qualified Data.Vector as V
 import           Numeric
 
+
+startV :: V.Vector Int
+startV =  V.fromList [0..255]
+
+lens :: [Int]
+lens = [94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243]
+lens2 :: String
+lens2 = "94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243"
+
+
 atIndexC :: V.Vector a -> Int -> a
 atIndexC v i
     | i < 0 = atIndexC v (V.length v + i)
@@ -27,14 +37,6 @@ updateC v ps = doPairs (V.toList ps) v where
 
 revAndPair :: V.Vector a -> Int -> Int -> V.Vector (Int, a)
 revAndPair v ix len = V.zipWith (,) (V.fromList [(ix + x) `mod` len | x <- [0.. length v]]) (V.reverse v)
-
-startV :: V.Vector Int
-startV =  V.fromList [0..255]
-
-lens :: [Int]
-lens = [94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243]
-lens2 :: String
-lens2 = "94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243"
 
 processInput ::  Int -> Int ->  V.Vector Int -> [Int] -> (V.Vector Int, Int, Int)
 processInput ix skip v [] = (v, ix, skip)
