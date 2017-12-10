@@ -35,7 +35,7 @@ natural :: Parser Int
 natural = pure read <*> many1 digit
 
 type Program = (String , Int)
-data Tower = Tower (String , Int) [Tower]
+data Tower = Tower (String , Int) [String]
 
 instance Show Tower where
     show ( Tower nw towers) = show nw ++ show " -> " ++ show (map show towers)
@@ -43,16 +43,14 @@ instance Eq  Tower where
     (==) (Tower (n, _) _) (Tower (n', _) _)  = n == n'
 
 
-createDummyNode :: String -> Tower
-createDummyNode s = Tower (s,0) []
 
 commaSp :: Parser String
 commaSp = string ", "
 
-names :: Parser [Tower]
+names :: Parser [String]
 names = do
     nl <- sepEndBy1 (many1 letter) commaSp
-    return $ createDummyNode <$> nl
+    return  nl
 
 program :: Parser Program
 program = do
