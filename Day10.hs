@@ -31,12 +31,14 @@ revAndPair v ix len = V.zipWith (,) (V.fromList [(ix + x) `mod` len | x <- [0.. 
 startV :: V.Vector Int
 startV =  V.fromList [0..255]
 
+lens :: [Int]
 lens = [94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243]
-lens2 = "94840792278111239321823103255254243"
+lens2 :: String
+lens2 = "94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243"
 
 processInput ::  Int -> Int ->  V.Vector Int -> [Int] -> (V.Vector Int, Int, Int)
 processInput ix skip v [] = (v, ix, skip)
-processInput  ix skip startListV (len:lens) = processInput  ix' (skip + 1 ) startListV' lens where
+processInput  ix skip startListV (len:lens) = processInput ix' (skip + 1 ) startListV' lens where
     slice = sliceC ix len startListV
     revPairs = revAndPair slice ix (length startListV)
     ix' = (ix + len + skip ) `mod` length startListV
@@ -62,10 +64,10 @@ grp n l
   | otherwise = error "Negative n"
 
 main = do
-    -- part 1
+    -- part 1 [23715]
     let (resV, _, _) = processInput  0 0 startV lens
     print $ (*) <$> [ (V.!) resV 0] <*> [(V.!) resV 1]
 
-    -- part 2
+    -- part 2 "541dc3180fd4b72881e39cf925a50253"
     let spa = sparseHash 64 0 0 (V.fromList [0..255]) input2
     print $ denseHash spa
