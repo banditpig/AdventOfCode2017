@@ -7,6 +7,7 @@ type Z = Int
 data Dir = N | NE  | SE | S | SW | NW
 
 type Hex = (X, Y, Z)
+
 start :: Hex
 start = (0, 0, 0)
 
@@ -31,8 +32,8 @@ strToDiv str = case str of
 distance :: Hex -> Hex -> Int
 distance (x, y, z) (x', y', z') = (abs (x - x') + abs (y - y') + abs (z - z')) `div` 2
 
-update :: String ->  (Hex, Int)  -> (Hex, Int)
-update m (loc, dist) = (loc', dist') where
+update ::  (Hex, Int) ->  String -> (Hex, Int)
+update (loc, dist) m = (loc', dist') where
        loc' = move  (strToDiv  m) loc
        newDist = distance loc' (0,0,0)
        dist' = if newDist > dist then newDist else dist
@@ -41,7 +42,7 @@ update m (loc, dist) = (loc', dist') where
 main = do
     input <- readFile "data/day11.txt"
 
-    let (end, d)  = foldl (flip update) (start, 0) $ splitOn "," input
+    let (end, d) = foldl update (start, 0) $ splitOn "," input
     -- part 1 - 643.
     print $  distance end (0,0,0)
     -- part 2 - 1471.
