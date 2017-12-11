@@ -1,5 +1,5 @@
+import           Data.List
 import           Data.List.Split
-
 type X = Int
 type Y = Int
 type Z = Int
@@ -7,7 +7,6 @@ type Z = Int
 data Dir = N | NE  | SE | S | SW | NW
 
 type Hex = (X, Y, Z)
-
 start :: Hex
 start = (0, 0, 0)
 
@@ -29,22 +28,16 @@ strToDiv str = case str of
     "sw" -> SW
     "se" -> SE
 
-distance :: Hex -> Hex -> Int
-distance (x, y, z) (x', y', z') = (abs (x - x') + abs (y - y') + abs (z - z')) `div` 2
+distance :: Hex -> Int
+distance (x, y, z)  = (abs x + abs y + abs z) `div` 2
 
-update ::  (Hex, Int) ->  String -> (Hex, Int)
-update (loc, dist) m = (loc', dist') where
-       loc' = move  (strToDiv  m) loc
-       newDist = distance loc' (0,0,0)
-       dist' = if newDist > dist then newDist else dist
-
+update ::  Hex ->  String -> Hex
+update loc m =  move  (strToDiv  m) loc
 
 main = do
     input <- readFile "data/day11.txt"
-
-    let (end, d) = foldl update (start, 0) $ splitOn "," input
     -- part 1 - 643.
-    print $  distance end (0,0,0)
+    print $ distance . foldl' update start $ splitOn "," input
     -- part 2 - 1471.
-    print d
+    print $ maximum . map distance . scanl' update start $ splitOn "," input
 
