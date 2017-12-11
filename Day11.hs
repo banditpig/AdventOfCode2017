@@ -20,8 +20,8 @@ move d (x, y, z)  = case d of
     SW -> (x - 1, y, z + 1)
     NW -> (x - 1, y + 1, z)
 
-strToDiv :: String -> Dir
-strToDiv str = case str of
+strToDir :: String -> Dir
+strToDir str = case str of
     "n"  -> N
     "s"  -> S
     "ne" -> NE
@@ -33,7 +33,7 @@ distance :: Hex -> Int
 distance (x, y, z)  = (abs x + abs y + abs z) `div` 2
 
 update ::  Hex ->  String -> Hex
-update loc m =  move  (strToDiv  m) loc
+update loc m =  move  (strToDir  m) loc
 
 main = do
 
