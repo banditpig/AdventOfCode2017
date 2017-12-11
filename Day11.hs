@@ -1,5 +1,6 @@
 import           Data.List
 import           Data.List.Split
+
 type X = Int
 type Y = Int
 type Z = Int
@@ -35,9 +36,12 @@ update ::  Hex ->  String -> Hex
 update loc m =  move  (strToDiv  m) loc
 
 main = do
-    input <- readFile "data/day11.txt"
+
+    input <- splitOn "," <$> readFile "data/day11.txt"
+    -- Or input <- readFile "data/day11.txt" >>= return . splitOn ","
+
     -- part 1 - 643.
-    print $ distance . foldl' update start $ splitOn "," input
+    print $ distance . foldl' update start $  input
     -- part 2 - 1471.
-    print $ maximum . map distance . scanl' update start $ splitOn "," input
+    print $ maximum . map distance . scanl' update start $ input
 
