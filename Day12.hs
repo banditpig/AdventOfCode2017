@@ -2,12 +2,9 @@
 {-# OPTIONS -Wall -fwarn-tabs -fno-warn-type-defaults -fno-warn-unused-do-bind #-}
 
 import           Control.Monad
-import           Control.Monad.State
-import           Data.List
 import           Data.List.Split
-import qualified Data.Map.Strict     as M
-import           Data.Maybe
-import qualified Data.Set            as S
+import qualified Data.Map.Strict as M
+import qualified Data.Set        as S
 
 type Key = String
 
